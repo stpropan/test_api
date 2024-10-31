@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return new UserCollection(User::paginate());
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return $user->toJson();
     }
 
     /**
@@ -45,5 +46,9 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function profile(Request $request) {
+        return $request->user()->toJson();
     }
 }
